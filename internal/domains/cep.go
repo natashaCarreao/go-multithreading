@@ -6,4 +6,5 @@ type Cep struct {
 	Bairro     string
 	Cidade     string
 	Uf         string
+	OrigenApi  string
 }

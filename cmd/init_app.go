@@ -1,10 +1,17 @@
 package cmd
 
-import "net/http"
+import (
+	"github.com/natashaCarreao/go-multithreading/internal/services/cep"
+)
 
 func Initialize() error {
 
-	//http.HandleFunc("/", views.GetCotacao)
+	for i := 0; i < 10; i++ {
 
-	return http.ListenAndServe(":8080", nil)
+		tst := cep.NewService()
+		tst.GetCEP("12042-230")
+
+	}
+
+	return nil
 }
