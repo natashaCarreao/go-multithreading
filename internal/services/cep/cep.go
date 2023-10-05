@@ -3,7 +3,6 @@ package cep
 import (
 	"github.com/natashaCarreao/go-multithreading/internal/clients_api/cdn"
 	"github.com/natashaCarreao/go-multithreading/internal/clients_api/viacep"
-	"github.com/natashaCarreao/go-multithreading/internal/domains"
 )
 
 type service struct {
@@ -12,7 +11,7 @@ type service struct {
 }
 
 type Service interface {
-	GetCEP(cep string) (*domains.Cep, error)
+	GetCEP(ceps []string)
 }
 
 func NewService() Service {
