@@ -25,7 +25,8 @@ func (s *service) GetCEP(ceps []string) {
 		case cepResp := <-cdnChan:
 			log.Printf("Found CEP: %s in CDN API: [%v]", cepResp.Cep, cepResp)
 
-		case <-time.After(5 * time.Second):
+		case <-time.After(1 * time.Second):
+			log.Print("Timeout")
 			return
 		}
 
