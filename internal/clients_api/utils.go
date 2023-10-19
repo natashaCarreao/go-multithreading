@@ -3,6 +3,7 @@ package clients_api
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -23,6 +24,9 @@ func Get(url string, seconds int64) (io.ReadCloser, error) {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
+		if errors.Is(err, ctx.Err()) {
+			return nil, fmt.Errorf("timeout")
+		}
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
