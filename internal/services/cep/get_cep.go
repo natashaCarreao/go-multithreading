@@ -15,9 +15,7 @@ func (s *service) GetCEP(ceps []string) {
 	for _, cep := range ceps {
 		go s.workerViaCep(cep, viaCepChan)
 		go s.workerCdn(cep, cdnChan)
-	}
 
-	for {
 		select {
 		case cepResp := <-viaCepChan:
 			log.Printf("Found CEP: %s in VIACEP API: [%v]", cepResp.Cep, cepResp)
@@ -25,11 +23,11 @@ func (s *service) GetCEP(ceps []string) {
 		case cepResp := <-cdnChan:
 			log.Printf("Found CEP: %s in CDN API: [%v]", cepResp.Cep, cepResp)
 
-		case <-time.After(5 * time.Second):
-			return
+		case <-time.After(1 * time.Second):
+			log.Print("Timeout")
 		}
-
 	}
+
 }
 
 func (s *service) workerViaCep(cep string, cepResp chan<- *domains.Cep) {
